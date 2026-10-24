@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#166534" />
+  <meta name="description" content="ShopMitra helps small shops manage products, sales, credit and expenses." />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="stylesheet" href="style.css" />
+  <title>ShopMitra — Shop management</title>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-mark">▦</div>
+        <div><strong>ShopMitra</strong><span>SHOP MANAGEMENT</span></div>
+        <button class="icon-btn close-nav" id="closeNav" aria-label="Close navigation">×</button>
+      </div>
+      <div class="shop-switch"><div class="shop-avatar" id="shopInitial">S</div><div class="shop-info"><strong id="sidebarShopName">Sri Lakshmi Stores</strong><span>Owner workspace</span></div><span class="chevron">›</span></div>
+      <div class="nav-label">WORKSPACE</div>
+      <nav id="navigation">
+        <button class="nav-item active" data-page="Home"><span class="nav-icon">⌂</span><span>Home</span></button>
+        <button class="nav-item" data-page="Transactions"><span class="nav-icon">▤</span><span>Transactions</span><span class="nav-count" id="transactionCount">0</span></button>
+        <button class="nav-item" data-page="Analytics"><span class="nav-icon">▥</span><span>Analytics</span></button>
+        <button class="nav-item" data-page="Settings"><span class="nav-icon">⚙</span><span>Settings</span></button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="help-card"><div class="help-icon">?</div><strong>Need a hand?</strong><p>Keep your shop running smoothly with ShopMitra.</p><button id="helpButton">Visit help centre ›</button></div>
+        <div class="offline-note"><span class="online-dot"></span><span>Local demo mode</span><span class="tiny-tag">V1</span></div>
+      </div>
+    </aside>
+    <div class="scrim" id="scrim"></div>
+    <main class="main-area">
+      <header class="topbar">
+        <div class="topbar-left"><button class="icon-btn menu-btn" id="menuBtn" aria-label="Open navigation">☰</button><div class="breadcrumb">Workspace <span>›</span> <strong id="breadcrumbPage">Home</strong></div></div>
+        <div class="topbar-right"><div class="date-pill" id="todayDate"></div><button class="language-btn" id="languageToggle">文 <span id="languageLabel">EN</span></button><div class="user-avatar">SM</div></div>
+      </header>
+      <div class="page-content">
+        <section class="page-section active" id="page-Home">
+          <div class="page-heading"><div><div class="eyebrow">YOUR BUSINESS AT A GLANCE</div><h1 id="greeting">Good morning 👋</h1><p>Here’s what’s happening at your shop today.</p></div><button class="primary-btn" id="newSaleBtn">＋ New sale</button></div>
+          <div class="metric-grid">
+            <div class="metric-card"><div class="metric-icon green">₹</div><div class="metric-label">Today's sales</div><div class="metric-value" id="todaySales">₹0</div><div class="metric-delta" id="todaySalesDelta">0 transactions</div></div>
+            <div class="metric-card"><div class="metric-icon blue">↗</div><div class="metric-label">Collected today</div><div class="metric-value" id="todayCollected">₹0</div><div class="metric-delta">Cash + digital payments</div></div>
+            <div class="metric-card"><div class="metric-icon orange">▣</div><div class="metric-label">Credit outstanding</div><div class="metric-value" id="outstandingCredit">₹0</div><div class="metric-delta" id="openBalances">0 open balances</div></div>
+            <div class="metric-card"><div class="metric-icon purple">↘</div><div class="metric-label">Today's expenses</div><div class="metric-value" id="todayExpenses">₹0</div><div class="metric-delta">Recorded expenses</div></div>
+          </div>
+          <div class="home-grid">
+            <div class="panel product-panel">
+              <div class="panel-heading"><div><h2>Products</h2><p>Find items and add them to a sale</p></div><button class="text-btn" data-go="Settings">Manage products ›</button></div>
+              <div class="search-row"><div class="search-box"><span>⌕</span><input id="productSearch" placeholder="Search products..." /></div><select id="categoryFilter" class="filter-select"><option value="All">All categories</option></select></div>
+              <div class="product-grid" id="productGrid"></div>
+              <div class="product-foot"><span><span class="status-dot"></span><span id="productCount">0 products in catalogue</span></span><button id="addProductFromHome">＋ Add product</button></div>
+            </div>
+            <div class="right-stack">
+              <div class="panel cart-panel">
+                <div class="panel-heading"><div><h2>🛒 Current sale</h2><p><span id="cartItemCount">0</span> item types in cart</p></div><span class="soft-badge">Draft</span></div>
+                <div id="cartLines"></div>
+                <div class="cart-total"><span>Total amount</span><strong id="cartTotal">₹0</strong></div>
+                <button class="checkout-btn" id="checkoutBtn" disabled>Continue to payment ›</button>
+              </div>
+              <div class="panel mini-summary"><div class="panel-heading"><div><h2>Quick summary</h2><p>Today's snapshot</p></div><span class="muted-icon">↗</span></div>
+                <div class="summary-row"><span>Estimated gross profit</span><strong class="positive" id="todayProfit">₹0</strong></div>
+                <div class="summary-row"><span>Items running low</span><strong class="low-value" id="lowStockCount">0 products</strong></div>
+                <div class="summary-row"><span>All-time collections</span><strong id="allTimeCollections">₹0</strong></div>
+                <button class="subtle-link" data-go="Analytics">View business report ›</button>
+              </div>
+            </div>
+          </div>
+          <div class="panel recent-panel"><div class="panel-heading"><div><h2>Recent transactions</h2><p>Your latest shop activity</p></div><button class="text-btn" data-go="Transactions">View all ›</button></div><div class="table-wrap" id="recentTable"></div></div>
+        </section>
+
+        <section class="page-section" id="page-Transactions">
+          <div class="page-heading"><div><div class="eyebrow">MONEY IN & OUT</div><h1>Transactions</h1><p>Track sales, collections, customer credit and shop expenses.</p></div><div class="heading-actions"><button class="secondary-btn" id="addExpenseBtn">− Add expense</button><button class="primary-btn" id="newSaleBtn2">＋ New sale</button></div></div>
+          <div class="metric-grid three">
+            <div class="metric-card"><div class="metric-icon green">▤</div><div class="metric-label">Total sales</div><div class="metric-value" id="allSalesTotal">₹0</div><div class="metric-delta" id="allSalesCount">0 recorded sales</div></div>
+            <div class="metric-card"><div class="metric-icon blue">₹</div><div class="metric-label">Payments collected</div><div class="metric-value" id="allCollectedTotal">₹0</div><div class="metric-delta">Across all sales</div></div>
+            <div class="metric-card"><div class="metric-icon orange">▣</div><div class="metric-label">Outstanding credit</div><div class="metric-value" id="allCreditTotal">₹0</div><div class="metric-delta">Collect without re-selling</div></div>
+          </div>
+          <div class="panel"><div class="panel-heading"><div><h2>Sales history</h2><p>Sale records and payment status</p></div><button class="secondary-btn small" id="collectCreditBtn">₹ Collect credit</button></div><div class="table-wrap" id="salesTable"></div></div>
+          <div class="panel"><div class="panel-heading"><div><h2>Recent expenses</h2><p>Operating costs recorded for your shop</p></div><button class="text-btn" id="addExpenseBtn2">＋ Add expense</button></div><div id="expenseList"></div></div>
+        </section>
+
+        <section class="page-section" id="page-Analytics">
+          <div class="page-heading"><div><div class="eyebrow">UNDERSTAND YOUR BUSINESS</div><h1>Analytics & reports</h1><p>Understand sales, collections, costs and product movement.</p></div><button class="secondary-btn" id="exportAnalytics">⇩ Export data</button></div>
+          <div class="metric-grid">
+            <div class="metric-card"><div class="metric-icon green">↗</div><div class="metric-label">Total sales recorded</div><div class="metric-value" id="analyticsSales">₹0</div><div class="metric-delta">All saved transactions</div></div>
+            <div class="metric-card"><div class="metric-icon blue">₹</div><div class="metric-label">Total collected</div><div class="metric-value" id="analyticsCollected">₹0</div><div class="metric-delta">Payments received so far</div></div>
+            <div class="metric-card"><div class="metric-icon orange">▣</div><div class="metric-label">Receivables</div><div class="metric-value" id="analyticsCredit">₹0</div><div class="metric-delta">Unpaid sale balances</div></div>
+            <div class="metric-card"><div class="metric-icon purple">↘</div><div class="metric-label">Expenses recorded</div><div class="metric-value" id="analyticsExpenses">₹0</div><div class="metric-delta" id="expenseCount">0 expense entries</div></div>
+          </div>
+          <div class="analytics-grid">
+            <div class="panel"><div class="panel-heading"><div><h2>Sales by day</h2><p>Last 7 days · based on saved transactions</p></div></div><div class="chart-area" id="salesChart"></div><div class="chart-legend"><span class="legend-dot"></span> Sales total (not cash collected)</div></div>
+            <div class="panel"><div class="panel-heading"><div><h2>Stock watch</h2><p>Products with fewer than 10 units</p></div></div><div id="stockWatch"></div></div>
+          </div>
+          <div class="panel"><div class="panel-heading"><div><h2>Product performance</h2><p>Units sold across recorded sales</p></div></div><div class="table-wrap" id="performanceTable"></div><p class="disclaimer">Estimates use the saved product cost snapshot for each sale. This is a local demo dataset, not a tax or statutory accounting report.</p></div>
+        </section>
+
+        <section class="page-section" id="page-Settings">
+          <div class="page-heading"><div><div class="eyebrow">MAKE SHOPMITRA YOURS</div><h1>Settings</h1><p>Manage your shop profile, product catalogue, language and backups.</p></div></div>
+          <div class="settings-layout">
+            <div class="settings-menu"><div class="settings-menu-item active">▣ Shop profile</div><div class="settings-menu-item">▦ Products <span id="settingsProductCount">0</span></div><div class="settings-menu-item">文 Language</div><div class="settings-menu-item">♢ Security</div><div class="settings-menu-item">☁ Backup & restore</div></div>
+            <div class="settings-content">
+              <div class="panel"><div class="settings-title"><div class="settings-icon green">▣</div><div><h2>Shop profile</h2><p>Basic details shown in your workspace.</p></div></div><label class="field-label" for="shopNameInput">Shop name</label><input class="form-input" id="shopNameInput" value="Sri Lakshmi Stores" placeholder="Your shop name"/><p class="field-help">This name is saved locally in this browser.</p><button class="primary-btn" id="saveShopName">✓ Save changes</button></div>
+              <div class="panel"><div class="settings-title"><div class="settings-icon blue">▦</div><div><h2>Product catalogue</h2><p>Add, edit or remove products and update stock levels.</p></div><button class="primary-btn small" id="addProductFromSettings">＋ Add product</button></div><div class="table-wrap" id="productsManageTable"></div></div>
+              <div class="panel"><div class="settings-title"><div class="settings-icon purple">文</div><div><h2>Language & appearance</h2><p>Choose your preferred language.</p></div></div><label class="field-label" for="languageSelect">App language</label><select class="form-input" id="languageSelect"><option value="English">English</option><option value="Tamil">தமிழ்</option></select><p class="field-help">The Tamil option translates primary navigation and selected headings.</p></div>
+              <div class="panel"><div class="settings-title"><div class="settings-icon orange">♢</div><div><h2>Security & cloud services</h2><p>These integrations need backend setup before they can be considered active.</p></div></div>
+                <div class="integration-row"><div class="integration-symbol">♢</div><div class="integration-copy"><strong>PIN / passkey protection</strong><span>Not configured · local demo only</span></div><span class="integration-status pending">Not connected</span></div>
+                <div class="integration-row"><div class="integration-symbol">☁</div><div class="integration-copy"><strong>Google Drive backup</strong><span>Export a local JSON backup for now.</span></div><button class="secondary-btn small" id="exportBackup">⇩ Export</button></div>
+                <div class="integration-row"><div class="integration-symbol">♢</div><div class="integration-copy"><strong>Supabase account & sync</strong><span>Authentication, database and shop isolation not connected.</span></div><span class="integration-status pending">Not connected</span></div>
+                <div class="security-note"><span>♢</span><p><strong>Important:</strong> data is currently stored in this browser. It is not yet protected by server-side accounts or Row Level Security. Do not use this demo as the sole record of real business transactions.</p></div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      <footer class="app-footer"><span>© <span id="year"></span> ShopMitra</span><span><span class="online-dot"></span> Saved locally on this device</span><span>Starter build · v0.1</span></footer>
+    </main>
+  </div>
+
+  <div class="modal-backdrop hidden" id="modalBackdrop">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-header"><div><h2 id="modalTitle">Modal title</h2><p id="modalSubtitle"></p></div><button class="icon-btn" id="modalClose" aria-label="Close">×</button></div>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+  <div class="toast hidden" id="toast"><span class="toast-check">✓</span><span id="toastText"></span><button id="toastClose" aria-label="Dismiss">×</button></div>
+  <script src="app.js"></script>
+</body>
+</html>

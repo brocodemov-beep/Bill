@@ -1,0 +1,11 @@
+{
+  "name": "ShopMitra",
+  "short_name": "ShopMitra",
+  "description": "Simple shop management for small businesses",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f7f8f5",
+  "theme_color": "#166534",
+  "icons": []
+}
